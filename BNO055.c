@@ -1,12 +1,12 @@
 #include <Wire.h>
 
 
-#define 	BNO_055_ADR			0x28
+#define 	BNO_055_ADR		0x28
 #define 	BNO_055_ADR_		0x29
 
-#define 	OPR_MODE			0x3D
-#define		PWR_MODE			0x3E
-#define		NDOF				0x12
+#define 	OPR_MODE		0x3D
+#define		PWR_MODE		0x3E
+#define		NDOF			0x12
 
 #define		EUL_PITCH_MSB		0x1F
 #define 	EUL_PITCH_LSB		0x1E
