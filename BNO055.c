@@ -52,3 +52,17 @@ void	bnoInit(void) {
 	
 	
 }
+
+void	bnoGetRoll(uint8_t *msb, uint8_t *lsb) {
+	Wire.beginTransmission(BNO_055_ADR);
+	
+	Wire.write(EUL_PITCH_MSB);
+	
+	Wire.requestFrom(BNO_055_ADR, 2);
+	
+	*msb = Wire.read();
+	*lsb = Wire.read();
+	
+	Wire.endTransmission();
+	
+}
