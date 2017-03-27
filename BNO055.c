@@ -1,6 +1,6 @@
 #include <Wire.h>
 
-
+// Registers definition
 #define 	BNO_055_ADR		0x28
 #define 	BNO_055_ADR_		0x29
 
@@ -17,13 +17,18 @@
 #define 	EUL_HEADING_MSB		0x1B
 #define 	EUL_HEADING_LSB		0x1A
 
-
+uint16_t	rollEulAngle;
+uint8_t		rollEulLsb;
+uint8_t		rollEulMsb;
 
 
 void setup() {
 	Wire.begin();
 	Serial.begin(9600);
-
+	
+	Serial.println("BNO 055 I2C Test.."); 
+	
+	// Initializing BNO 055 - Fusion Mode - Normal Power Mode
 	bnoInit(); 	
 	
 	
@@ -31,12 +36,17 @@ void setup() {
 
 
 void loop() {
+	getRoll(&rollEulMsb, &rollEulLsb);
+	rollEulAngle = (rollEulMsb << 8) | rollEulLsb;
+
+	Serial.print("ROLL :"); Serial.println(rollEulAngle);
 	
 }
 
 
 void	bnoInit(void) {
 	Wire.beginTransmission(BNO_055_ADR);
+	// Alternative adress
 	//Wire.beginTransmission(BNO_055_ADR_);
 	
 	Wire.write(OPR_MODE);
@@ -52,7 +62,7 @@ void	bnoInit(void) {
 	
 	
 }
-
+// Get roll euler angle
 void	bnoGetRoll(uint8_t *msb, uint8_t *lsb) {
 	Wire.beginTransmission(BNO_055_ADR);
 	
